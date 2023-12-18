@@ -10,11 +10,9 @@ class DailyTaskViewModel(application: Application): AndroidViewModel(application
     private val db = AppDatabase.getDatabase(application)
     private val dailyTaskDao = db.DailyTaskDao()
 
-    fun addSampleDailyTask(){
-        val newDailyTask = DailyTask(startDate = "12/03/2002", endDate = "15/03/2022", title = "deadline", content = "Hao doing deadline")
+    fun addDailyTask(dailyTask: DailyTask){
         viewModelScope.launch(Dispatchers.IO){
-            dailyTaskDao.insertAll(newDailyTask)
+            dailyTaskDao.insertAll(dailyTask)
         }
     }
-
 }

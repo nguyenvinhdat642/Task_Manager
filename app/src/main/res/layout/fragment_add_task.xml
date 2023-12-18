@@ -15,20 +15,26 @@
         android:layout_height="wrap_content"
         android:text="Add Task"
         android:textColor="#FFFFFF"
-        android:textSize="20sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/navigate2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/navigate2" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/navigate2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Back"
+        android:gravity="center"
+        app:backgroundTint="@color/white"
+        app:cornerRadius="10dp"
+        app:icon="@drawable/arrow_back_24px"
+        app:iconGravity="textStart"
+        app:iconPadding="0dp"
+        app:iconTint="#006EE9"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -60,7 +66,7 @@
                 android:layout_height="wrap_content"
                 android:text="End"
                 android:textColor="#006EE9"
-                android:textSize="16sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.1"
@@ -74,7 +80,7 @@
                 android:layout_marginTop="36dp"
                 android:text="Start"
                 android:textColor="#006EE9"
-                android:textSize="16sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/guideline"
                 app:layout_constraintHorizontal_bias="0.17"
@@ -85,6 +91,7 @@
                 android:id="@+id/tvStart"
                 android:layout_width="160dp"
                 android:layout_height="48dp"
+                android:focusable="false"
                 android:text="AutoCompleteTextView"
                 app:layout_constraintEnd_toStartOf="@+id/guideline"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -95,6 +102,7 @@
                 android:id="@+id/tvEnd"
                 android:layout_width="160dp"
                 android:layout_height="48dp"
+                android:focusable="false"
                 android:text="AutoCompleteTextView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -105,10 +113,10 @@
                 android:id="@+id/lbTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="32dp"
                 android:text="Title"
                 android:textColor="#006EE9"
-                android:textSize="16sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/tvStart"
                 app:layout_constraintTop_toBottomOf="@+id/tvStart" />
@@ -116,42 +124,48 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout"
                 android:layout_width="0dp"
-                android:layout_height="48dp"
+                android:layout_height="60dp"
                 app:layout_constraintEnd_toEndOf="@+id/tvEnd"
                 app:layout_constraintStart_toStartOf="@+id/lbTitle"
                 app:layout_constraintTop_toBottomOf="@+id/lbTitle">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtTitle"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="hint" />
+                    android:layout_height="match_parent"
+                    android:hint="Enter title task" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:id="@+id/lbCategory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="32dp"
                 android:text="Category"
                 android:textColor="#006EE9"
-                android:textSize="16sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/textInputLayout"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnPlan"
                 android:layout_width="160dp"
-                android:layout_height="48dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="8dp"
                 android:text="Plan"
+                app:backgroundTint="#006EE9"
+                app:cornerRadius="10dp"
                 app:layout_constraintStart_toStartOf="@+id/lbCategory"
                 app:layout_constraintTop_toBottomOf="@+id/lbCategory" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnDaily"
                 android:layout_width="160dp"
-                android:layout_height="48dp"
+                android:layout_height="60dp"
                 android:text="Daily"
+                app:backgroundTint="#006EE9"
+                app:cornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
                 app:layout_constraintStart_toStartOf="@+id/tvEnd"
                 app:layout_constraintTop_toTopOf="@+id/btnPlan" />
@@ -160,33 +174,37 @@
                 android:id="@+id/lbContent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="32dp"
                 android:text="Description"
                 android:textColor="#006EE9"
-                android:textSize="16sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/btnPlan"
                 app:layout_constraintTop_toBottomOf="@+id/btnPlan" />
 
             <EditText
-                android:id="@+id/editTextText"
+                android:id="@+id/edtDes"
                 android:layout_width="0dp"
                 android:layout_height="170dp"
                 android:ems="10"
                 android:inputType="text"
                 app:layout_constraintEnd_toEndOf="@+id/btnDaily"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/lbContent"
-                app:layout_constraintTop_toBottomOf="@+id/lbContent" />
+                app:layout_constraintTop_toBottomOf="@+id/lbContent"
+                android:hint="Write the content here" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnCreateTask"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginBottom="16dp"
                 android:text="Create Task"
-                app:layout_constraintEnd_toEndOf="@+id/editTextText"
-                app:layout_constraintStart_toStartOf="@+id/editTextText"
-                app:layout_constraintTop_toBottomOf="@+id/editTextText" />
+                app:backgroundTint="#006EE9"
+                app:cornerRadius="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/edtDes"
+                app:layout_constraintStart_toStartOf="@+id/edtDes" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
