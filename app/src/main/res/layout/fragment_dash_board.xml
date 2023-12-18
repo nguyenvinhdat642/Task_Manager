@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="4dp"
-    tools:context=".ui.HomeFragment">
+    tools:context=".ui.DashboardFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -31,7 +31,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:drawableEndCompat="@drawable/notifications_24px" />
+        app:drawableEndCompat="@drawable/header_notification" />
 
     <TextView
         android:id="@+id/tvHello"

@@ -3,24 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/task_manager_nav"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/avatar">
 
-    <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.example.taskmanager.ui.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/action_homeFragment_to_addTaskFragment"
-            app:destination="@id/addTaskFragment" />
-    </fragment>
     <fragment
         android:id="@+id/addTaskFragment"
         android:name="com.example.taskmanager.ui.AddTaskFragment"
         android:label="fragment_add_task"
-        tools:layout="@layout/fragment_add_task" >
-        <action
-            android:id="@+id/action_addTaskFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_add_task" />
+    <fragment
+        android:id="@+id/avatar"
+        android:name="com.example.taskmanager.ui.AvatarFragment"
+        android:label="fragment_avatar"
+        tools:layout="@layout/fragment_avatar" />
+    <fragment
+        android:id="@+id/calendar"
+        android:name="com.example.taskmanager.ui.CalendarFragment"
+        android:label="fragment_calendar"
+        tools:layout="@layout/fragment_calendar" />
+    <fragment
+        android:id="@+id/home"
+        android:name="com.example.taskmanager.ui.DashboardFragment"
+        android:label="fragment_dash_board"
+        tools:layout="@layout/fragment_dash_board" />
 </navigation>

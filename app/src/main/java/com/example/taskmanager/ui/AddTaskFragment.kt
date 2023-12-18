@@ -43,7 +43,7 @@ class AddTaskFragment : Fragment() {
                 content = edtDes.text.toString()
                 )
             viewModel.addDailyTask(newDailyTask)
-            findNavController().navigate(R.id.action_addTaskFragment_to_homeFragment)
+//            findNavController().navigate(R.id.action_addTaskFragment_to_dashboardFragment)
         }
         return view
     }

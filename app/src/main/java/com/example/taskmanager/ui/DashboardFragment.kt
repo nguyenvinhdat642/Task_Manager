@@ -5,25 +5,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.RadioButton
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.taskmanager.DailyTask
 import com.example.taskmanager.DailyTaskViewModel
 import com.example.taskmanager.R
 
 
-class HomeFragment : Fragment() {
+class DashboardFragment : Fragment() {
     private val viewModel: DailyTaskViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_home, container, false)
+        val view = inflater.inflate(R.layout.fragment_dash_board, container, false)
         val dailyTaskList = viewModel.getAllDailyTasks()
         val dailyTaskAdapter = DailyTaskAdapter(dailyTaskList)
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
