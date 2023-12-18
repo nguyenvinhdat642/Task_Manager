@@ -15,4 +15,12 @@ class DailyTaskViewModel(application: Application): AndroidViewModel(application
             dailyTaskDao.insertAll(dailyTask)
         }
     }
+    fun getAllDailyTasks(): List<DailyTask>{
+        val sampleList = arrayListOf<DailyTask>()
+        viewModelScope.launch(Dispatchers.IO){
+            sampleList.clear()
+            sampleList.addAll(dailyTaskDao.getAll())
+        }
+        return sampleList
+    }
 }

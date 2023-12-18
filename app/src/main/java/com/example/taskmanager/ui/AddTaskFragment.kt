@@ -7,10 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AutoCompleteTextView
-import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.findFragment
 import androidx.navigation.fragment.findNavController
 import com.example.taskmanager.DailyTask
 import com.example.taskmanager.DailyTaskViewModel
@@ -50,6 +48,10 @@ class AddTaskFragment : Fragment() {
         return view
     }
     private fun AutoCompleteTextView.datePicker(){
+        val date = System.currentTimeMillis()
+        val format = "dd/MM/yyyy"
+        val simpleDateFormat = SimpleDateFormat(format, Locale.JAPAN)
+        this.setText(simpleDateFormat.format(date))
         this.setOnClickListener {
             val currentDate = Calendar.getInstance()
             var mYear = currentDate.get(Calendar.YEAR)
@@ -63,8 +65,6 @@ class AddTaskFragment : Fragment() {
                         calendar.set(Calendar.YEAR, year)
                         calendar.set(Calendar.MONTH, month)
                         calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                        val format = "dd/MM/yyyy"
-                        val simpleDateFormat = SimpleDateFormat(format, Locale.JAPAN)
                         this.setText(simpleDateFormat.format(calendar.time))
                         mDay = dayOfMonth
                         mMonth = month
