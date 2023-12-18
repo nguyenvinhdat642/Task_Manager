@@ -1,89 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.HomeFragment">
+    tools:context=".ui.HomeFragment">
 
+    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:id="@+id/header"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:drawableEnd="@drawable/ic_notifications_black_24dp"
-        android:gravity="start"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        android:text="20 Fri, 2023"
-        android:textColor="#090909"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Home Fragment" />
 
-    <TextView
-        android:id="@+id/sub_header_1"
-        android:layout_width="355dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Chào mừng HaoDang"
-        android:textColor="#000000"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header" />
-
-    <TextView
-        android:id="@+id/good_day"
-        android:layout_width="355dp"
-        android:layout_height="wrap_content"
-        android:text="Một ngày tốt lành!"
-        android:textColor="#000000"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/sub_header_1"
-        app:layout_constraintStart_toStartOf="@+id/sub_header_1"
-        app:layout_constraintTop_toBottomOf="@+id/sub_header_1" />
-
-    <TextView
-        android:id="@+id/category_1"
+    <Button
+        android:id="@+id/navigate1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="Kế hoạch của tôi"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/sub_header_1"
-        app:layout_constraintTop_toBottomOf="@+id/good_day" />
+        android:text="Go to add fragment"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/plan_list"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/category_1"
-        app:layout_constraintTop_toBottomOf="@+id/category_1" />
-
-    <TextView
-        android:id="@+id/category_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="Nhiệm vụ hằng ngày"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/plan_list"
-        app:layout_constraintTop_toBottomOf="@+id/plan_list" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/daily_list"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="@+id/category_2"
-        app:layout_constraintTop_toBottomOf="@+id/category_2" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
