@@ -18,15 +18,16 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.Task
+import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 
 class RegisterFragment : Fragment() {
-    private lateinit var username: EditText
-    private lateinit var email: EditText
-    private lateinit var password: EditText
-    private lateinit var confilmpass: EditText
+    private lateinit var username: TextInputEditText
+    private lateinit var email: TextInputEditText
+    private lateinit var password: TextInputEditText
+    private lateinit var confilmpass: TextInputEditText
     private lateinit var btnRegister: Button
     private lateinit var btnGoogle: ImageButton
     private lateinit var auth: FirebaseAuth

@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
@@ -23,18 +24,17 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.TaskExecutors
+import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 
 class LoginFragment : Fragment() {
-    private var param1: String? = null
-    private var param2: String? = null
     private val viewModel: DailyTaskViewModel by activityViewModels()
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
-    private lateinit var email: EditText
-    private lateinit var password: EditText
+    private lateinit var email: TextInputEditText
+    private lateinit var password: TextInputEditText
     private lateinit var btnLogin: Button
     private lateinit var btnGoogle: ImageButton
     private lateinit var tvSignUp: TextView
@@ -47,8 +47,8 @@ class LoginFragment : Fragment() {
         // Inflate the layout for this fragment
         val view =  inflater.inflate(R.layout.fragment_login, container, false)
         btnGoogle = view.findViewById(R.id.btnGoogle)
-        email = view.findViewById(R.id.etEmail)
-        password = view.findViewById(R.id.etPassword)
+        email = view.findViewById(R.id.tvEmail)
+        password = view.findViewById(R.id.tvPassword)
         btnLogin = view.findViewById(R.id.btnLogin)
         btnGoogle = view.findViewById(R.id.btnGoogle)
         tvSignUp = view.findViewById(R.id.tvSignUp)
