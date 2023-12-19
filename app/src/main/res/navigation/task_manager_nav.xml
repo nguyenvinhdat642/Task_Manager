@@ -21,7 +21,11 @@
         android:id="@+id/avatar"
         android:name="com.example.taskmanager.ui.AvatarFragment"
         android:label="fragment_avatar"
-        tools:layout="@layout/fragment_avatar" />
+        tools:layout="@layout/fragment_avatar" >
+        <action
+            android:id="@+id/action_avatar_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
     <fragment
         android:id="@+id/calendar"
         android:name="com.example.taskmanager.ui.CalendarFragment"
