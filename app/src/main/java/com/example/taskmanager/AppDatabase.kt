@@ -4,8 +4,11 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverter
+import androidx.room.TypeConverters
 
-@Database(entities = [DailyTask::class], version = 1)
+@Database(entities = [DailyTask::class], version = 2)
+@TypeConverters(DateConverter::class)
 abstract class AppDatabase: RoomDatabase() {
     abstract fun DailyTaskDao(): DailyTaskDao
     companion object {

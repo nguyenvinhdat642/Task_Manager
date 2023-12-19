@@ -3,13 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/task_manager_nav"
-    app:startDestination="@id/avatar">
+    app:startDestination="@id/home">
 
     <fragment
         android:id="@+id/addTaskFragment"
         android:name="com.example.taskmanager.ui.AddTaskFragment"
         android:label="fragment_add_task"
-        tools:layout="@layout/fragment_add_task" />
+        tools:layout="@layout/fragment_add_task" >
+        <action
+            android:id="@+id/action_addTaskFragment_to_home"
+            app:destination="@id/home" />
+    </fragment>
     <fragment
         android:id="@+id/avatar"
         android:name="com.example.taskmanager.ui.AvatarFragment"
@@ -19,7 +23,11 @@
         android:id="@+id/calendar"
         android:name="com.example.taskmanager.ui.CalendarFragment"
         android:label="fragment_calendar"
-        tools:layout="@layout/fragment_calendar" />
+        tools:layout="@layout/fragment_calendar" >
+        <action
+            android:id="@+id/action_calendar_to_addTaskFragment"
+            app:destination="@id/addTaskFragment" />
+    </fragment>
     <fragment
         android:id="@+id/home"
         android:name="com.example.taskmanager.ui.DashboardFragment"

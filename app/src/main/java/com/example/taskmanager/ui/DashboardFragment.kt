@@ -39,7 +39,7 @@ private class DailyTaskAdapter(
         val rbtnIsDone = itemView.findViewById<RadioButton>(R.id.isDone)
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DailyTaskViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.task_item, parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.task_item1, parent, false)
         return DailyTaskViewHolder(itemView)
     }
 
