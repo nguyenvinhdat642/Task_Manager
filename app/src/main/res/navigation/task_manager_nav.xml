@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/task_manager_nav"
-    app:startDestination="@id/home">
+    app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/addTaskFragment"
@@ -33,4 +33,25 @@
         android:name="com.example.taskmanager.ui.DashboardFragment"
         android:label="fragment_dash_board"
         tools:layout="@layout/fragment_dash_board" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.taskmanager.ui.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_home"
+            app:destination="@id/home" />
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment3"
+            app:destination="@id/registerFragment3" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment3"
+        android:name="com.example.taskmanager.ui.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_registerFragment3_to_home"
+            app:destination="@id/home" />
+    </fragment>
 </navigation>

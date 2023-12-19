@@ -18,6 +18,7 @@ abstract class AppDatabase: RoomDatabase() {
                 synchronized(this) {
                     INSTANCE =
                         Room.databaseBuilder(context,AppDatabase::class.java, "dailyTask")
+                            .fallbackToDestructiveMigration()
                             .build()
                 }
             }

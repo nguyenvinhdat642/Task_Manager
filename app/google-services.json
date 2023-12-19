@@ -1,0 +1,158 @@
+{
+  "project_info": {
+    "project_number": "190742153418",
+    "project_id": "login-6728f",
+    "storage_bucket": "login-6728f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:190742153418:android:0594c374fc9ac7dce8cc33",
+        "android_client_info": {
+          "package_name": "com.example.taskmanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "190742153418-j0pqnq1mrefknnlvddds13dm5q2hatmf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.taskmanager",
+            "certificate_hash": "fede34ee74c2df564dbebe7276d33d7b98ff4ef1"
+          }
+        },
+        {
+          "client_id": "190742153418-e63ankuqr9ae68ccqe2i2gd4bk60mg29.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyIb05FbMfek61e8xzDo5ia-s9s7sCGtw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "190742153418-e63ankuqr9ae68ccqe2i2gd4bk60mg29.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:190742153418:android:e3acc0d1886a0cb7e8cc33",
+        "android_client_info": {
+          "package_name": "com.tdtu.edu.google_sign"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "190742153418-89r87lutnol0qlvd9d5mlto8st6f8gg0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tdtu.edu.google_sign",
+            "certificate_hash": "fede34ee74c2df564dbebe7276d33d7b98ff4ef1"
+          }
+        },
+        {
+          "client_id": "190742153418-e63ankuqr9ae68ccqe2i2gd4bk60mg29.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyIb05FbMfek61e8xzDo5ia-s9s7sCGtw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "190742153418-e63ankuqr9ae68ccqe2i2gd4bk60mg29.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:190742153418:android:1a34e6d432faa31ae8cc33",
+        "android_client_info": {
+          "package_name": "com.tdtu.edu.google_sign_v2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "190742153418-dsrn4pr32okni7pfubr9hig2autje95m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tdtu.edu.google_sign_v2",
+            "certificate_hash": "fede34ee74c2df564dbebe7276d33d7b98ff4ef1"
+          }
+        },
+        {
+          "client_id": "190742153418-e63ankuqr9ae68ccqe2i2gd4bk60mg29.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyIb05FbMfek61e8xzDo5ia-s9s7sCGtw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "190742153418-e63ankuqr9ae68ccqe2i2gd4bk60mg29.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:190742153418:android:7809ce4ad2a12986e8cc33",
+        "android_client_info": {
+          "package_name": "com.tdtu.edu.login_google"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "190742153418-o4dfqr79r9onf5nd7naj6d10e68ndfbb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tdtu.edu.login_google",
+            "certificate_hash": "fede34ee74c2df564dbebe7276d33d7b98ff4ef1"
+          }
+        },
+        {
+          "client_id": "190742153418-e63ankuqr9ae68ccqe2i2gd4bk60mg29.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyIb05FbMfek61e8xzDo5ia-s9s7sCGtw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "190742153418-e63ankuqr9ae68ccqe2i2gd4bk60mg29.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
