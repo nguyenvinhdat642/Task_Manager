@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.Date
 
 class DailyTaskViewModel(application: Application): AndroidViewModel(application) {
     private val db = AppDatabase.getDatabase(application)
@@ -22,5 +23,13 @@ class DailyTaskViewModel(application: Application): AndroidViewModel(application
             sampleList.addAll(dailyTaskDao.getAll())
         }
         return sampleList
+    }
+    fun getDailyTaskBetweenDay(selectedDate: Date): List<DailyTask> {
+        val result = arrayListOf<DailyTask>()
+        viewModelScope.launch(Dispatchers.IO) {
+            result.clear()
+            result.addAll(dailyTaskDao.getTasksBetweenDates(selectedDate))
+        }
+        return result
     }
 }

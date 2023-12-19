@@ -11,8 +11,7 @@
         android:id="@+id/calendarMonth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="20dp"
         android:drawableStart="@drawable/calendar1"
         android:drawablePadding="8dp"
         android:focusable="false"
@@ -21,19 +20,20 @@
         android:textColor="#000000"
         android:textSize="28sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/btnAddTask"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/btnAddTask" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/dayOfMonthList"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="96dp"
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/calendarMonth" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button"
@@ -80,9 +80,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="56dp"
+        android:layout_marginEnd="20dp"
+        android:backgroundTint="#006EE9"
         android:text="Add task"
-        app:layout_constraintBottom_toBottomOf="@+id/calendarMonth"
+        android:textSize="14sp"
+        app:icon="@drawable/resource_default"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

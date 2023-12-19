@@ -12,8 +12,8 @@ interface DailyTaskDao {
     @Query("SELECT * FROM dailyTask")
     fun getAll(): List<DailyTask>
 
-    @Query("SELECT * FROM DailyTask WHERE start_date BETWEEN :startDate AND :endDate")
-    fun getTasksBetweenDates(startDate: Date, endDate: Date): List<DailyTask>
+    @Query("SELECT * FROM dailyTask WHERE start_date LIKE :selectedDate")
+    fun getTasksBetweenDates(selectedDate: Date): List<DailyTask>
 
 //    @Insert(onConflict = OnConflictStrategy.REPLACE)
 //    fun insertTask(dailyTask: DailyTask)

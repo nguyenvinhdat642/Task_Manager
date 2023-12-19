@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.example.taskmanager.DailyTask
 import com.example.taskmanager.DailyTaskViewModel
 import com.example.taskmanager.R
@@ -65,7 +66,7 @@ class AddTaskFragment : Fragment() {
                 content = edtDes.text.toString()
             )
             viewModel.addDailyTask(newDailyTask)
-            // findNavController().navigate(R.id.action_addTaskFragment_to_dashboardFragment)
+            findNavController().navigate(R.id.action_addTaskFragment_to_calendar)
         }
     }
 

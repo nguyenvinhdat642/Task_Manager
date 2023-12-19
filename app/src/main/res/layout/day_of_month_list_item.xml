@@ -1,30 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="80dp"
-    android:layout_height="80dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="10dp"
-    android:backgroundTint="#006EE9"
+    android:id="@+id/domCardView"
+    android:layout_width="64dp"
+    android:layout_height="64dp"
     android:layout_margin="8dp"
+    android:backgroundTint="#EBF2FF"
+    app:cardCornerRadius="10dp"
     app:cardElevation="10dp">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical">
+
         <TextView
             android:id="@+id/tvDayOfWeek"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:text="Mon"/>
+            android:text="Mon"
+            android:textColor="#006EE9" />
+
         <TextView
             android:id="@+id/tvDayOfMonth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
             android:text="21"
-            android:textSize="24sp"
-            android:textStyle="bold"/>
+            android:textColor="#006EE9"
+            android:textSize="20sp"
+            android:textStyle="bold" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>
