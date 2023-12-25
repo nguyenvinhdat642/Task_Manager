@@ -1,60 +1,149 @@
 package com.example.taskmanager.ui
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageButton
+import android.widget.ImageView
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.example.taskmanager.R
+import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import java.util.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [ProfileFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ProfileFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private lateinit var name: TextInputEditText
+    private lateinit var profession: TextInputEditText
+    private lateinit var email: TextInputEditText
+    private lateinit var btnAvatar: ImageButton
+    private lateinit var avatar: ImageView
+    private lateinit var btnSave: Button
+    private lateinit var storage: FirebaseStorage
+    private lateinit var storageReference: StorageReference
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    companion object {
+        private const val PICK_IMAGE_REQUEST = 1
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+        val view = inflater.inflate(R.layout.fragment_profile, container, false)
+
+        name = view.findViewById(R.id.etName)
+        profession = view.findViewById(R.id.etProfesson)
+        email = view.findViewById(R.id.etEmail)
+        btnAvatar = view.findViewById(R.id.btnAvatar)
+        avatar = view.findViewById(R.id.profile_image)
+        btnSave = view.findViewById(R.id.btnSave)
+
+        val auth = FirebaseAuth.getInstance()
+        val user = auth.currentUser
+
+        storage = FirebaseStorage.getInstance()
+        storageReference = storage.reference
+
+        name.setText(user?.displayName)
+        email.setText(user?.email)
+
+        btnAvatar.setOnClickListener {
+            val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            startActivityForResult(intent, PICK_IMAGE_REQUEST)
+        }
+
+        btnSave.setOnClickListener {
+            updateUserInfo()
+            updateProfession(profession.toString())
+        }
+
+        return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ProfileFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ProfileFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null && data.data != null) {
+            val imageUri = data.data
+
+            if (imageUri != null) {
+                uploadImage(imageUri)
+            }
+        }
+    }
+
+    private fun uploadImage(imageUri: Uri) {
+        val imageName = "avatars/${UUID.randomUUID()}.jpg"
+        val imageRef = storageReference.child(imageName)
+
+        imageRef.putFile(imageUri)
+            .addOnSuccessListener {
+                imageRef.downloadUrl.addOnSuccessListener { uri ->
+                    val profileUpdates = UserProfileChangeRequest.Builder()
+                        .setPhotoUri(uri)
+                        .build()
+
+                    FirebaseAuth.getInstance().currentUser?.updateProfile(profileUpdates)
+                        ?.addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                updateProfession(profession.toString())
+                            } else {
+                                Toast.makeText(context, "Update failed", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                }
+            }
+            .addOnFailureListener {
+                Toast.makeText(context, "Image upload failed", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    private fun updateUserInfo() {
+        val newName = name.text.toString()
+
+        val profileUpdates = UserProfileChangeRequest.Builder()
+            .setDisplayName(newName)
+            .build()
+
+        FirebaseAuth.getInstance().currentUser?.updateProfile(profileUpdates)
+            ?.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    updateProfession(profession.toString())
+                } else {
+                    Toast.makeText(context, "Update failed", Toast.LENGTH_SHORT).show()
                 }
             }
     }
+
+
+    private fun updateProfession(newProfession: String) {
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        if (userId != null) {
+            val databaseReference = FirebaseDatabase.getInstance().getReference("users").child(userId)
+            val professionMap = HashMap<String, Any>()
+            professionMap["profession"] = newProfession
+
+            databaseReference.updateChildren(professionMap)
+                .addOnSuccessListener {
+                    Toast.makeText(context, "Profession updated successfully", Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener {
+                    Toast.makeText(context, "Failed to update profession", Toast.LENGTH_SHORT).show()
+                }
+        } else {
+            Toast.makeText(context, "User not logged in", Toast.LENGTH_SHORT).show()
+        }
+    }
+
 }
