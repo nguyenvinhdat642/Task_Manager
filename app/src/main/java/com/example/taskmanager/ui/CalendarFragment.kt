@@ -148,17 +148,13 @@ class CalendarFragment : Fragment() {
                 ).toInstant()
             )
         )
-        dailyTaskAdapter = DomDailyTaskAdapter(dailyTaskData){ clickedTask ->
-            viewModel.selectedDailyTask(clickedTask)
-            findNavController().navigate(R.id.action_calendar_to_dailyTaskFragment)
-        }
+        dailyTaskAdapter = DomDailyTaskAdapter(dailyTaskData)
         dailyTaskList.adapter = dailyTaskAdapter
     }
 }
 
 private class DomDailyTaskAdapter(
-    private val dailyTaskData: List<DailyTask>,
-    private val onItemClick: (DailyTask) -> Unit
+    private val dailyTaskData: List<DailyTask>
 ) : RecyclerView.Adapter<DomDailyTaskAdapter.DomDailyTaskViewHolder>() {
     inner class DomDailyTaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvTaskTitle = itemView.findViewById<TextView>(R.id.taskTitle)
@@ -178,9 +174,6 @@ private class DomDailyTaskAdapter(
             holder.itemView.visibility = View.GONE
         }
         holder.tvTaskTitle.text = currentDailyTask.title
-        holder.itemView.setOnClickListener {
-            onItemClick.invoke(currentDailyTask)
-        }
     }
 }
 

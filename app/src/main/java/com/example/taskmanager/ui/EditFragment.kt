@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -17,13 +16,11 @@ import com.example.taskmanager.DailyTask
 import com.example.taskmanager.DailyTaskViewModel
 import com.example.taskmanager.R
 import com.google.android.material.button.MaterialButton
-import com.google.android.material.textfield.TextInputEditText
 import java.text.SimpleDateFormat
 import java.util.Calendar
-import java.util.Date
 import java.util.Locale
 
-class AddTaskFragment : Fragment() {
+class EditFragment : Fragment() {
 
     private val viewModel: DailyTaskViewModel by activityViewModels()
 
@@ -32,14 +29,15 @@ class AddTaskFragment : Fragment() {
     private lateinit var edtTitle: EditText
     private lateinit var edtDes: EditText
     private lateinit var btnCreate: MaterialButton
+    private lateinit var tvEditTitle: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_add_task, container, false)
+        val view = inflater.inflate(R.layout.fragment_edit, container, false)
         initializeViews(view)
-        setDefaultDates()
+        setDefaultTask()
         setClickListeners()
         return view
     }
@@ -50,11 +48,16 @@ class AddTaskFragment : Fragment() {
         edtTitle = view.findViewById(R.id.edtTitle)
         edtDes = view.findViewById(R.id.edtDes)
         btnCreate = view.findViewById(R.id.btnCreateTask)
+        tvEditTitle = view.findViewById(R.id.tvEditTitle)
     }
 
-    private fun setDefaultDates() {
-        tvStart.text = getFormattedDate(System.currentTimeMillis())
-        tvEnd.text = getFormattedDate(System.currentTimeMillis())
+    private fun setDefaultTask() {
+        val dailyTask = viewModel.selectedDailyTask.value
+        tvStart.text = dailyTask?.startDate?.let { viewModel.parseToString(it) }
+        tvEnd.text = dailyTask?.endDate?.let { viewModel.parseToString(it) }
+        tvEditTitle.text = dailyTask?.title
+        edtTitle.setText(dailyTask?.title.toString())
+        edtDes.setText(dailyTask?.content.toString())
     }
 
     private fun setClickListeners() {
@@ -62,14 +65,12 @@ class AddTaskFragment : Fragment() {
         tvEnd.datePicker()
 
         btnCreate.setOnClickListener {
-            val newDailyTask = DailyTask(
-                startDate = viewModel.parseToDate(tvStart.text.toString()),
-                endDate = viewModel.parseToDate(tvEnd.text.toString()),
-                title = edtTitle.text.toString(),
-                content = edtDes.text.toString(),
-                state = false
-            )
-            viewModel.addDailyTask(newDailyTask)
+            val dailyTask = viewModel.selectedDailyTask.value
+            val startDate = viewModel.parseToDate(tvStart.text.toString())
+            val endDate = viewModel.parseToDate(tvEnd.text.toString())
+            val title = edtTitle.text.toString()
+            val content = edtDes.text.toString()
+            viewModel.updateTaskById(dailyTask!!.id, startDate, endDate, title, content)
             showAlertDialog()
         }
     }
@@ -88,11 +89,12 @@ class AddTaskFragment : Fragment() {
                         calendar.set(Calendar.YEAR, year)
                         calendar.set(Calendar.MONTH, month)
                         calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                        setText(getFormattedDate(calendar.timeInMillis))
+                        text = getFormattedDate(calendar.timeInMillis)
                         mDay = dayOfMonth
                         mMonth = month
                         mYear = year
-                    }, mYear, mMonth, mDay)
+                    }, mYear, mMonth, mDay
+                )
             }
             datePickerDialog?.show()
         }
@@ -103,6 +105,7 @@ class AddTaskFragment : Fragment() {
         val simpleDateFormat = SimpleDateFormat(format, Locale.getDefault())
         return simpleDateFormat.format(dateInMillis)
     }
+
     private fun showAlertDialog() {
         val builder = AlertDialog.Builder(context, R.style.CustomDialogStyle)
         val inflater = LayoutInflater.from(context)
@@ -112,9 +115,9 @@ class AddTaskFragment : Fragment() {
 
         builder.setView(view)
         val alertDialog = builder.create()
-        tvMessage.text = getString(R.string.new_task_has_been_create_successfully)
+        tvMessage.text = getString(R.string.task_updated_successfully)
         btnBack.setOnClickListener {
-            findNavController().navigate(R.id.action_addTaskFragment_to_calendar)
+            findNavController().navigate(R.id.action_editFragment_to_home)
             alertDialog.dismiss()
         }
         alertDialog.show()

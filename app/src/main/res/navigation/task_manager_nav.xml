@@ -48,7 +48,14 @@
         android:id="@+id/home"
         android:name="com.example.taskmanager.ui.DashboardFragment"
         android:label="fragment_dash_board"
-        tools:layout="@layout/fragment_dash_board" />
+        tools:layout="@layout/fragment_dash_board" >
+        <action
+            android:id="@+id/action_home_to_dailyTaskFragment"
+            app:destination="@id/dailyTaskFragment" />
+        <action
+            android:id="@+id/action_home_to_editFragment"
+            app:destination="@id/editFragment" />
+    </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.taskmanager.ui.LoginFragment"
@@ -78,6 +85,9 @@
         <action
             android:id="@+id/action_dailyTaskFragment_to_calendar"
             app:destination="@id/calendar" />
+        <action
+            android:id="@+id/action_dailyTaskFragment_to_home"
+            app:destination="@id/home" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -86,5 +96,14 @@
         <action
             android:id="@+id/action_profileFragment_to_avatar"
             app:destination="@id/avatar" />
+    </fragment>
+    <fragment
+        android:id="@+id/editFragment"
+        android:name="com.example.taskmanager.ui.EditFragment"
+        android:label="fragment_edit"
+        tools:layout="@layout/fragment_edit" >
+        <action
+            android:id="@+id/action_editFragment_to_home"
+            app:destination="@id/home" />
     </fragment>
 </navigation>

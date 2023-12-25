@@ -28,6 +28,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.example.taskmanager.DailyTaskViewModel
+import com.example.taskmanager.MainActivity
 import com.example.taskmanager.R
 
 class LoginFragment : Fragment() {

@@ -39,12 +39,23 @@ class DailyTaskFragment : Fragment() {
         tvHours.text = remainingHours.toString()
         tvMinute.text = remainingMinutes.toString()
         tvDailyTaskName.text = dailyTask?.title ?: "NoName"
+        if (dailyTask != null) {
+            if (dailyTask.state){
+                btnFinish.text = "Unfinish"
+            }else
+                btnFinish.text = "Finish"
+        }
         btnClose.setOnClickListener{
             findNavController().navigate(R.id.action_dailyTaskFragment_to_calendar)
         }
         btnFinish.setOnClickListener {
-            dailyTask?.id?.let { it1 -> viewModel.finishTask(it1) }
-            findNavController().navigate(R.id.action_dailyTaskFragment_to_calendar)
+            if (dailyTask?.state == true){
+                dailyTask.id.let { it1 -> viewModel.unfinishTask(it1) }
+            }else{
+                dailyTask?.id?.let { it1 -> viewModel.finishTask(it1) }
+            }
+            findNavController().navigate(R.id.action_dailyTaskFragment_to_home)
+
         }
         return view
     }

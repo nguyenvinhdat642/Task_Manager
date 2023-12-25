@@ -33,4 +33,13 @@ interface DailyTaskDao {
 
     @Query("UPDATE DailyTask SET state = :newState WHERE id = :taskId")
     suspend fun updateTaskState(taskId: Int, newState: Boolean)
+
+    @Query("UPDATE DailyTask SET start_date = :startDate, end_date = :endDate, title = :title, content = :content WHERE id = :taskId")
+    suspend fun updateTaskById(
+        taskId: Int,
+        startDate: Date,
+        endDate: Date,
+        title: String,
+        content: String
+    )
 }

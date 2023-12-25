@@ -2,4 +2,21 @@
     <string name="app_name">TaskManager</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_task">Add Task</string>
+    <string name="end">End</string>
+    <string name="start">Start</string>
+    <string name="title">Title</string>
+    <string name="enter_title_task">Enter title task</string>
+    <string name="category">Category</string>
+    <string name="plan">Plan</string>
+    <string name="daily">Daily</string>
+    <string name="description">Description</string>
+    <string name="write_the_content_here">Write the content here</string>
+    <string name="create_task">Create Task</string>
+    <string name="new_task_has_been_create_successfully">New task has been create successfully</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="are_you_sure_want_to_delete_this_task">Are you sure want to delete this task?</string>
+    <string name="edit_task">Edit Task</string>
+    <string name="task_updated_successfully">Task updated successfully</string>
 </resources>
