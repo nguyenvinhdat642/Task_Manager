@@ -60,10 +60,11 @@ class AddTaskFragment : Fragment() {
 
         btnCreate.setOnClickListener {
             val newDailyTask = DailyTask(
-                startDate = parseToDate(tvStart.text.toString()),
-                endDate = parseToDate(tvEnd.text.toString()),
+                startDate = viewModel.parseToDate(tvStart.text.toString()),
+                endDate = viewModel.parseToDate(tvEnd.text.toString()),
                 title = edtTitle.text.toString(),
-                content = edtDes.text.toString()
+                content = edtDes.text.toString(),
+                state = false
             )
             viewModel.addDailyTask(newDailyTask)
             findNavController().navigate(R.id.action_addTaskFragment_to_calendar)
@@ -98,10 +99,5 @@ class AddTaskFragment : Fragment() {
         val format = "yyyy-MM-dd"
         val simpleDateFormat = SimpleDateFormat(format, Locale.getDefault())
         return simpleDateFormat.format(dateInMillis)
-    }
-
-    private fun parseToDate(dateString: String): Date {
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        return dateFormat.parse(dateString) ?: Date()
     }
 }

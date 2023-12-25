@@ -34,6 +34,9 @@
         <action
             android:id="@+id/action_calendar_to_addTaskFragment"
             app:destination="@id/addTaskFragment" />
+        <action
+            android:id="@+id/action_calendar_to_dailyTaskFragment"
+            app:destination="@id/dailyTaskFragment" />
     </fragment>
     <fragment
         android:id="@+id/home"
@@ -60,5 +63,14 @@
         <action
             android:id="@+id/action_registerFragment3_to_home"
             app:destination="@id/home" />
+    </fragment>
+    <fragment
+        android:id="@+id/dailyTaskFragment"
+        android:name="com.example.taskmanager.ui.DailyTaskFragment"
+        android:label="fragment_daily_task"
+        tools:layout="@layout/fragment_daily_task" >
+        <action
+            android:id="@+id/action_dailyTaskFragment_to_calendar"
+            app:destination="@id/calendar" />
     </fragment>
 </navigation>

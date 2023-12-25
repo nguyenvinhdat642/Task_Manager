@@ -1,6 +1,7 @@
 package com.example.taskmanager.ui
 
 import android.app.DatePickerDialog
+import android.opengl.Visibility
 import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -35,6 +36,7 @@ class CalendarFragment : Fragment() {
     private lateinit var dailyTaskData: List<DailyTask>
     private lateinit var domAdapter: DomAdapter
     private lateinit var dailyTaskAdapter: DomDailyTaskAdapter
+    private lateinit var domList: RecyclerView
     private val viewModel: DailyTaskViewModel by activityViewModels()
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -45,7 +47,7 @@ class CalendarFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_calendar, container, false)
         val calendarMonth = view.findViewById<TextView>(R.id.calendarMonth)
-        val domList = view.findViewById<RecyclerView>(R.id.dayOfMonthList)
+        domList = view.findViewById(R.id.dayOfMonthList)
         val dailyTaskList = view.findViewById<RecyclerView>(R.id.dailyTaskList)
         val btnAddTask = view.findViewById<Button>(R.id.btnAddTask)
 
@@ -70,15 +72,19 @@ class CalendarFragment : Fragment() {
         updateDailyTasksForDate(selectedDate, dailyTaskList)
 
         // Scroll to the position corresponding to selectedDate
-        val positionToScroll = data.indexOf(selectedDate)
-        if (positionToScroll != -1) {
-            domList.smoothScrollToPosition(positionToScroll + 2)
-        }
+        scrollToPosition(selectedDate)
 
         btnAddTask.setOnClickListener {
             findNavController().navigate(R.id.action_calendar_to_addTaskFragment)
         }
         return view
+    }
+
+    private fun scrollToPosition(date: LocalDate){
+        val positionToScroll = data.indexOf(date)
+        if (positionToScroll != -1) {
+            domList.smoothScrollToPosition(positionToScroll + 2)
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -142,13 +148,17 @@ class CalendarFragment : Fragment() {
                 ).toInstant()
             )
         )
-        dailyTaskAdapter = DomDailyTaskAdapter(dailyTaskData)
+        dailyTaskAdapter = DomDailyTaskAdapter(dailyTaskData){ clickedTask ->
+            viewModel.selectedDailyTask(clickedTask)
+            findNavController().navigate(R.id.action_calendar_to_dailyTaskFragment)
+        }
         dailyTaskList.adapter = dailyTaskAdapter
     }
 }
 
 private class DomDailyTaskAdapter(
-    private val dailyTaskData: List<DailyTask>
+    private val dailyTaskData: List<DailyTask>,
+    private val onItemClick: (DailyTask) -> Unit
 ) : RecyclerView.Adapter<DomDailyTaskAdapter.DomDailyTaskViewHolder>() {
     inner class DomDailyTaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvTaskTitle = itemView.findViewById<TextView>(R.id.taskTitle)
@@ -164,7 +174,13 @@ private class DomDailyTaskAdapter(
 
     override fun onBindViewHolder(holder: DomDailyTaskViewHolder, position: Int) {
         val currentDailyTask = dailyTaskData[position]
+        if (currentDailyTask.state){
+            holder.itemView.visibility = View.GONE
+        }
         holder.tvTaskTitle.text = currentDailyTask.title
+        holder.itemView.setOnClickListener {
+            onItemClick.invoke(currentDailyTask)
+        }
     }
 }
 

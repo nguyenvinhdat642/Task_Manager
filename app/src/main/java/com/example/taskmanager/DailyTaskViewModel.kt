@@ -2,14 +2,18 @@ package com.example.taskmanager
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.Locale
 
 class DailyTaskViewModel(application: Application): AndroidViewModel(application) {
     private val db = AppDatabase.getDatabase(application)
     private val dailyTaskDao = db.DailyTaskDao()
+    val selectedDailyTask = MutableLiveData<DailyTask>()
 
     fun addDailyTask(dailyTask: DailyTask){
         viewModelScope.launch(Dispatchers.IO){
@@ -31,5 +35,17 @@ class DailyTaskViewModel(application: Application): AndroidViewModel(application
             result.addAll(dailyTaskDao.getTasksBetweenDates(selectedDate))
         }
         return result
+    }
+    fun selectedDailyTask(clickedTask: DailyTask) {
+        selectedDailyTask.value = clickedTask
+    }
+    fun parseToDate(dateString: String): Date {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        return dateFormat.parse(dateString) ?: Date()
+    }
+    fun finishTask(taskId: Int){
+        viewModelScope.launch(Dispatchers.IO){
+            dailyTaskDao.updateTaskState(taskId, newState = true)
+        }
     }
 }

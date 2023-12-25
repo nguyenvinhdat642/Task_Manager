@@ -48,9 +48,7 @@ private class DailyTaskAdapter(
     override fun onBindViewHolder(holder: DailyTaskViewHolder, position: Int) {
         val currentDailyTask = dataset[position]
         holder.tvTaskTitle.text = currentDailyTask.title
-        holder.tvTaskTitle.setOnClickListener {
-            holder.rbtnIsDone.isChecked = !holder.rbtnIsDone.isChecked
-        }
+        holder.rbtnIsDone.isChecked = currentDailyTask.state == true
     }
 
 }

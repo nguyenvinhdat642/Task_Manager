@@ -12,4 +12,5 @@ data class DailyTask (
     @ColumnInfo(name = "end_date") val endDate: Date,
     @ColumnInfo(name = "title") val title: String,
     @ColumnInfo(name = "content") val content: String,
+    @ColumnInfo(name = "state") val state: Boolean
 )

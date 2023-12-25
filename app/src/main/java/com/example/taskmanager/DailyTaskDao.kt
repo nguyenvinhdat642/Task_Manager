@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import java.util.Date
 
 @Dao
@@ -29,4 +30,7 @@ interface DailyTaskDao {
 
     @Delete
     fun delete(dailyTask: DailyTask)
+
+    @Query("UPDATE DailyTask SET state = :newState WHERE id = :taskId")
+    suspend fun updateTaskState(taskId: Int, newState: Boolean)
 }
