@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_avatar_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_avatar_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/calendar"
@@ -61,4 +64,9 @@
             android:id="@+id/action_registerFragment3_to_home"
             app:destination="@id/home" />
     </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.taskmanager.ui.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>

@@ -14,6 +14,7 @@ import com.google.firebase.auth.FirebaseAuth
 class AvatarFragment : Fragment() {
     private lateinit var btnLogout: MaterialButton
     private lateinit var auth: FirebaseAuth
+    private lateinit var btnProfile: MaterialButton
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -22,10 +23,18 @@ class AvatarFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_avatar, container, false)
         auth = FirebaseAuth.getInstance()
         btnLogout = view.findViewById(R.id.btnLogout)
+        btnProfile = view.findViewById(R.id.btnProfile)
+
         btnLogout.setOnClickListener {
             auth.signOut()
             findNavController().navigate(R.id.action_avatar_to_loginFragment)
         }
+
+        btnProfile.setOnClickListener {
+            findNavController().navigate(R.id.action_avatar_to_profileFragment)
+
+        }
+
         return view
     }
 
