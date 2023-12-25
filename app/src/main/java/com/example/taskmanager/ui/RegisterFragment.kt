@@ -24,7 +24,6 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 
 class RegisterFragment : Fragment() {
-    private lateinit var username: TextInputEditText
     private lateinit var email: TextInputEditText
     private lateinit var password: TextInputEditText
     private lateinit var confilmpass: TextInputEditText
@@ -48,7 +47,6 @@ class RegisterFragment : Fragment() {
 
         googleSignInClient = context?.let { GoogleSignIn.getClient(it, gso) }!!
 
-        username = view.findViewById(R.id.etUsername)
         email = view.findViewById(R.id.etEmail)
         password = view.findViewById(R.id.etPassword)
         confilmpass = view.findViewById(R.id.etConfilmPassword)

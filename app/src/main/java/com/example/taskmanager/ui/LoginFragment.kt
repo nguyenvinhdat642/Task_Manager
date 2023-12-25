@@ -1,20 +1,19 @@
 package com.example.taskmanager.ui
 
-import com.example.taskmanager.DailyTaskViewModel
-import com.example.taskmanager.R
 import android.app.Activity
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AutoCompleteTextView
 import android.widget.Button
-import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -28,6 +27,8 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import com.example.taskmanager.DailyTaskViewModel
+import com.example.taskmanager.R
 
 class LoginFragment : Fragment() {
     private val viewModel: DailyTaskViewModel by activityViewModels()
@@ -38,19 +39,17 @@ class LoginFragment : Fragment() {
     private lateinit var btnLogin: Button
     private lateinit var btnGoogle: ImageButton
     private lateinit var tvSignUp: TextView
-
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view =  inflater.inflate(R.layout.fragment_login, container, false)
         btnGoogle = view.findViewById(R.id.btnGoogle)
         email = view.findViewById(R.id.tvEmail)
         password = view.findViewById(R.id.tvPassword)
         btnLogin = view.findViewById(R.id.btnLogin)
-        btnGoogle = view.findViewById(R.id.btnGoogle)
         tvSignUp = view.findViewById(R.id.tvSignUp)
 
         auth = FirebaseAuth.getInstance()
@@ -60,9 +59,9 @@ class LoginFragment : Fragment() {
             .build()
 
         googleSignInClient = context?.let { GoogleSignIn.getClient(it, gso) }!!
+        sharedPreferences = requireActivity().getPreferences(Context.MODE_PRIVATE)
 
-
-        btnGoogle.setOnClickListener {
+        if (isUserLoggedIn()) {
             findNavController().navigate(R.id.action_loginFragment_to_home)
         }
 
@@ -88,11 +87,29 @@ class LoginFragment : Fragment() {
         return view
     }
 
+    private fun isUserLoggedIn(): Boolean {
+        val userEmail = sharedPreferences.getString("userEmail", null)
+        return userEmail != null
+    }
+
+    private fun saveUserLoginInfo(email: String) {
+        val editor = sharedPreferences.edit()
+        editor.putString("userEmail", email)
+        editor.apply()
+    }
+
+    private fun clearUserLoginInfo() {
+        val editor = sharedPreferences.edit()
+        editor.remove("userEmail")
+        editor.apply()
+    }
+
     private fun signInWithEmailAndPassword(email: String, password: String) {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(TaskExecutors.MAIN_THREAD, OnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val user: FirebaseUser? = auth.currentUser
+                    saveUserLoginInfo(email)
                     findNavController().navigate(R.id.action_loginFragment_to_home)
                 } else {
                     Toast.makeText(
@@ -103,7 +120,6 @@ class LoginFragment : Fragment() {
                 }
             })
     }
-
 
     private fun signInEmail() {
         findNavController().navigate(R.id.action_loginFragment_to_registerFragment3)
@@ -117,7 +133,6 @@ class LoginFragment : Fragment() {
     private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
             result ->
         if (result.resultCode == Activity.RESULT_OK){
-
             val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
             handleResults(task)
         }
@@ -138,17 +153,11 @@ class LoginFragment : Fragment() {
         val credential = GoogleAuthProvider.getCredential(account.idToken, null)
         auth.signInWithCredential(credential).addOnCompleteListener {
             if (it.isSuccessful){
-//                val intent : Intent = Intent(this , HomeActivity::class.java)
-//                intent.putExtra("email" , account.email)
-//                intent.putExtra("name" , account.displayName)
-//                startActivity(intent)
+                saveUserLoginInfo(account.email ?: "")
                 findNavController().navigate(R.id.action_loginFragment_to_home)
-            }else{
+            } else {
                 Toast.makeText(context, it.exception.toString(), Toast.LENGTH_SHORT).show()
-
             }
         }
     }
-
-
 }
