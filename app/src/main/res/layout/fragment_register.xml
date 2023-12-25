@@ -26,7 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Create your account"
-        android:textColor="@color/black"
+        android:textColor="#006EE9"
         android:textStyle="bold"
         android:textSize="18sp"
         android:layout_gravity="center_horizontal"
@@ -37,16 +37,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="26dp">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etUsername"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:drawableStart="@drawable/avatar1"
-            android:drawablePadding="8dp"
-            android:hint="Name" />
-    </com.google.android.material.textfield.TextInputLayout>
+        android:layout_marginTop="26dp"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilEmail"

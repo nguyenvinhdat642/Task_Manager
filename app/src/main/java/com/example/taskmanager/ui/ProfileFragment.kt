@@ -154,6 +154,7 @@ class ProfileFragment : Fragment() {
             ?.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     findNavController().navigate(R.id.action_profileFragment_to_avatar)
+
                 } else {
                     Toast.makeText(context, "Update failed", Toast.LENGTH_SHORT).show()
                 }
