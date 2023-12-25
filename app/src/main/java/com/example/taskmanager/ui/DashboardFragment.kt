@@ -9,13 +9,23 @@ import android.widget.RadioButton
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.taskmanager.DailyTask
 import com.example.taskmanager.DailyTaskViewModel
 import com.example.taskmanager.R
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.type.Date
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 
 class DashboardFragment : Fragment() {
     private val viewModel: DailyTaskViewModel by activityViewModels()
+    private lateinit var auth: FirebaseAuth
+    private var currentUser: FirebaseUser? = null
+    private lateinit var username: TextView
+    private lateinit var date: TextView
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -25,9 +35,32 @@ class DashboardFragment : Fragment() {
         val dailyTaskList = viewModel.getAllDailyTasks()
         val dailyTaskAdapter = DailyTaskAdapter(dailyTaskList)
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
+        username = view.findViewById(R.id.tvHello)
+        date = view.findViewById(R.id.tvCurrentDate)
+
+        auth = FirebaseAuth.getInstance()
+
+        setDate()
+
+        loadUserProfile()
+
         recyclerView.adapter = dailyTaskAdapter
         recyclerView.setHasFixedSize(true)
         return view
+    }
+
+    private fun setDate() {
+        val currentDate = java.util.Date()
+        val dateFormat = SimpleDateFormat("EEEE, dd/MM/yyyy", Locale.getDefault())
+        val formattedDate = dateFormat.format(currentDate)
+        date.text = formattedDate
+    }
+
+    private fun loadUserProfile() {
+        currentUser = auth.currentUser
+        currentUser?.let { user ->
+            username.text = user.displayName
+        }
     }
 }
 

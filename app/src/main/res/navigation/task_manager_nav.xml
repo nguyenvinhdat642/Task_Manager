@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_avatar_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_avatar_to_home"
+            app:destination="@id/home" />
     </fragment>
     <fragment
         android:id="@+id/calendar"

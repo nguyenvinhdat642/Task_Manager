@@ -23,6 +23,7 @@ class AvatarFragment : Fragment() {
     private lateinit var ivAvatar: ImageView
     private lateinit var auth: FirebaseAuth
     private var currentUser: FirebaseUser? = null
+    private lateinit var btnBack: MaterialButton
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,6 +37,7 @@ class AvatarFragment : Fragment() {
         tvName = view.findViewById(R.id.name)
         tvEmail = view.findViewById(R.id.tvEmail)
         ivAvatar = view.findViewById(R.id.profile_image)
+        btnBack = view.findViewById(R.id.navigate2)
 
         setupButtons()
         loadUserProfile()
@@ -50,6 +52,10 @@ class AvatarFragment : Fragment() {
 
         btnProfile.setOnClickListener {
             findNavController().navigate(R.id.action_avatar_to_profileFragment)
+        }
+
+        btnBack.setOnClickListener {
+            findNavController().navigate(R.id.action_avatar_to_home)
         }
     }
 

@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.taskmanager.R
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
@@ -36,6 +37,7 @@ class ProfileFragment : Fragment() {
     private lateinit var btnSave: Button
     private lateinit var storage: FirebaseStorage
     private lateinit var storageReference: StorageReference
+    private lateinit var btnBack: MaterialButton
 
     companion object {
         private const val PICK_IMAGE_REQUEST = 1
@@ -54,6 +56,7 @@ class ProfileFragment : Fragment() {
         btnAvatar = view.findViewById(R.id.btnAvatar)
         avatar = view.findViewById(R.id.profile_image)
         btnSave = view.findViewById(R.id.btnSave)
+        btnBack = view.findViewById(R.id.navigate2)
 
         val auth = FirebaseAuth.getInstance()
         val user = auth.currentUser
@@ -64,7 +67,6 @@ class ProfileFragment : Fragment() {
         name.setText(user?.displayName)
         email.setText(user?.email)
 
-        // Hiển thị avatar từ Firebase nếu có
         val avatarUrl = user?.photoUrl
         if (avatarUrl != null) {
             Glide.with(this)
@@ -78,8 +80,11 @@ class ProfileFragment : Fragment() {
         }
 
         btnSave.setOnClickListener {
-            // Cập nhật thông tin và avatar trên Firebase
             updateUserInfo()
+        }
+
+        btnBack.setOnClickListener {
+            findNavController().navigate(R.id.action_profileFragment_to_avatar)
         }
 
         return view
@@ -136,7 +141,6 @@ class ProfileFragment : Fragment() {
         builder.setTitle("Success")
         builder.setMessage("Image uploaded successfully!")
         builder.setPositiveButton("OK") { _, _ ->
-            // Handle the OK button click if needed
         }
         val dialog = builder.create()
         dialog.show()
