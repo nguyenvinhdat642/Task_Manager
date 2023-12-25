@@ -26,14 +26,11 @@ import java.util.Locale
 
 class DashboardFragment : Fragment() {
     private val viewModel: DailyTaskViewModel by activityViewModels()
-<<<<<<< Updated upstream
     private lateinit var auth: FirebaseAuth
     private var currentUser: FirebaseUser? = null
     private lateinit var username: TextView
     private lateinit var date: TextView
-=======
     private lateinit var dailyTaskAdapter: DailyTaskAdapter
->>>>>>> Stashed changes
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,7 +44,7 @@ class DashboardFragment : Fragment() {
                 viewModel.selectedDailyTask(selectedTask)
                 findNavController().navigate(R.id.action_home_to_dailyTaskFragment)
             },
-            onItemLongClick = {selectedTask ->
+            onItemLongClick = { selectedTask ->
                 showAlertDialog(selectedTask)
             })
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
@@ -65,7 +62,6 @@ class DashboardFragment : Fragment() {
         return view
     }
 
-<<<<<<< Updated upstream
     private fun setDate() {
         val currentDate = java.util.Date()
         val dateFormat = SimpleDateFormat("EEEE, dd/MM/yyyy", Locale.getDefault())
@@ -78,12 +74,14 @@ class DashboardFragment : Fragment() {
         currentUser?.let { user ->
             username.text = user.displayName
         }
-=======
+    }
+
     override fun onResume() {
         super.onResume()
         dailyTaskAdapter.notifyDataSetChanged()
 
     }
+
     private fun showAlertDialog(dailyTask: DailyTask) {
         val builder = AlertDialog.Builder(context, R.style.CustomDialogStyle)
         val inflater = LayoutInflater.from(context)
@@ -104,6 +102,7 @@ class DashboardFragment : Fragment() {
         }
         alertDialog.show()
     }
+
     private fun showDeleteAlertDialog(dailyTask: DailyTask) {
         val builder = AlertDialog.Builder(context, R.style.CustomDialogStyle)
         val inflater = LayoutInflater.from(context)
@@ -121,7 +120,6 @@ class DashboardFragment : Fragment() {
             alertDialog.dismiss()
         }
         alertDialog.show()
->>>>>>> Stashed changes
     }
 }
 
@@ -129,13 +127,15 @@ private class DailyTaskAdapter(
     private val dataset: List<DailyTask>,
     private val onItemClick: (DailyTask) -> Unit,
     private val onItemLongClick: (DailyTask) -> Unit
-): RecyclerView.Adapter<DailyTaskAdapter.DailyTaskViewHolder>(){
-    inner class DailyTaskViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+) : RecyclerView.Adapter<DailyTaskAdapter.DailyTaskViewHolder>() {
+    inner class DailyTaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvTaskTitle = itemView.findViewById<TextView>(R.id.taskTitle)
         val rbtnIsDone = itemView.findViewById<RadioButton>(R.id.isDone)
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DailyTaskViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.task_item1, parent, false)
+        val itemView =
+            LayoutInflater.from(parent.context).inflate(R.layout.task_item1, parent, false)
         return DailyTaskViewHolder(itemView)
     }
 
