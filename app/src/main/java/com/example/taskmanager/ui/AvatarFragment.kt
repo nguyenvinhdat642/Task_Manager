@@ -1,5 +1,6 @@
 package com.example.taskmanager.ui
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -44,14 +45,30 @@ class AvatarFragment : Fragment() {
 
     private fun setupButtons() {
         btnLogout.setOnClickListener {
-            auth.signOut()
-            clearUserLoginInfo()
-            findNavController().navigate(R.id.action_avatar_to_loginFragment)
+            showLogoutConfirmationDialog()
         }
 
         btnProfile.setOnClickListener {
             findNavController().navigate(R.id.action_avatar_to_profileFragment)
         }
+    }
+
+    private fun showLogoutConfirmationDialog() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Logout")
+        builder.setMessage("Are you sure?")
+        builder.setPositiveButton("Yes") { _, _ ->
+            performLogout()
+        }
+        builder.setNegativeButton("No", null)
+        val dialog = builder.create()
+        dialog.show()
+    }
+
+    private fun performLogout() {
+        auth.signOut()
+        clearUserLoginInfo()
+        findNavController().navigate(R.id.action_avatar_to_loginFragment)
     }
 
     private fun clearUserLoginInfo() {
