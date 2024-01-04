@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="10dp"
-    android:layout_marginBottom="4dp">
+    android:layout_marginBottom="4dp"
+    app:cardCornerRadius="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,19 +16,18 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_weight="1"
             android:paddingStart="16dp"
             android:paddingEnd="8dp"
-            android:layout_weight="1"
-            android:textColor="#006EE9"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textColor="@color/black"
+            android:textSize="16sp"/>
 
         <RadioButton
             android:id="@+id/isDone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#006EE9"
-            android:clickable="false"/>
+            android:buttonTint="#006EE9"
+            android:clickable="false" />
 
     </LinearLayout>
 

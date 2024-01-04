@@ -9,10 +9,9 @@ import com.example.taskmanager.interfaces.DailyTaskDao
 import com.example.taskmanager.interfaces.PlanDao
 import com.example.taskmanager.model.DailyTask
 import com.example.taskmanager.model.Plan
-import com.example.taskmanager.model.PlanWithToDoLists
-import com.example.taskmanager.model.TodoList
+import com.example.taskmanager.model.Todo
 
-@Database(entities = [DailyTask::class, Plan::class, TodoList::class], version = 5)
+@Database(entities = [DailyTask::class, Plan::class, Todo::class], version = 6)
 @TypeConverters(DateConverter::class)
 abstract class AppDatabase: RoomDatabase() {
     abstract fun DailyTaskDao(): DailyTaskDao

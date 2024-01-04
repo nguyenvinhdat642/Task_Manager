@@ -20,7 +20,7 @@ interface DailyTaskDao {
 //    @Insert(onConflict = OnConflictStrategy.REPLACE)
 //    fun insertTask(dailyTask: DailyTask)
 
-    @Query("SELECT * FROM dailyTask WHERE userId IN (:dailyTaskIds)")
+    @Query("SELECT * FROM dailyTask WHERE taskId IN (:dailyTaskIds)")
     fun loadAllByIds(dailyTaskIds: IntArray): List<DailyTask>
 
     @Query("SELECT * FROM dailyTask WHERE title LIKE :title LIMIT 1")
@@ -32,10 +32,10 @@ interface DailyTaskDao {
     @Delete
     fun delete(dailyTask: DailyTask)
 
-    @Query("UPDATE DailyTask SET state = :newState WHERE userId = :taskId")
+    @Query("UPDATE DailyTask SET state = :newState WHERE taskId = :taskId")
     suspend fun updateTaskState(taskId: kotlin.Long, newState: Boolean)
 
-    @Query("UPDATE DailyTask SET start_date = :startDate, end_date = :endDate, title = :title, content = :content WHERE userId = :taskId")
+    @Query("UPDATE DailyTask SET start_date = :startDate, end_date = :endDate, title = :title, content = :content WHERE taskId = :taskId")
     suspend fun updateTaskById(
         taskId: kotlin.Long,
         startDate: Date,

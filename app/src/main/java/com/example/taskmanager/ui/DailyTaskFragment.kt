@@ -50,9 +50,9 @@ class DailyTaskFragment : Fragment() {
         }
         btnFinish.setOnClickListener {
             if (dailyTask?.state == true){
-                dailyTask.userId.let { it1 -> viewModel.unfinishTask(it1) }
+                dailyTask.taskId.let { it1 -> viewModel.unfinishTask(it1) }
             }else{
-                dailyTask?.userId?.let { it1 -> viewModel.finishTask(it1) }
+                dailyTask?.taskId?.let { it1 -> viewModel.finishTask(it1) }
             }
             findNavController().navigate(R.id.action_dailyTaskFragment_to_home)
 

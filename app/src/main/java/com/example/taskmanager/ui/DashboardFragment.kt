@@ -1,6 +1,8 @@
 package com.example.taskmanager.ui
 
 import android.app.AlertDialog
+import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -132,7 +134,7 @@ class DashboardFragment : Fragment() {
 }
 
 private class PlanAdapter(private var dataset: List<Plan>) :
-    RecyclerView.Adapter<PlanAdapter.PlanViewHolder>(){
+    RecyclerView.Adapter<PlanAdapter.PlanViewHolder>() {
     inner class PlanViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val timeRemaining = itemView.findViewById<TextView>(R.id.time_remaining)
         val planTitle = itemView.findViewById<TextView>(R.id.plan_title)
@@ -149,9 +151,11 @@ private class PlanAdapter(private var dataset: List<Plan>) :
     override fun onBindViewHolder(holder: PlanViewHolder, position: Int) {
         val currentPlan = dataset[position]
         holder.planTitle.text = currentPlan.title
-        holder.timeRemaining.text = calculateRemainingDays(currentPlan.startDate, currentPlan.endDate).toString()
+        holder.timeRemaining.text =
+            calculateRemainingDays(currentPlan.startDate, currentPlan.endDate).toString()
         holder.progressBar.progress = 50
     }
+
     fun calculateRemainingDays(startDate: Date, endDate: Date): Long {
         // Convert Date objects to Calendar instances
         val startCalendar = Calendar.getInstance().apply { time = startDate }
@@ -193,8 +197,13 @@ private class DailyTaskAdapter(
 
     override fun onBindViewHolder(holder: DailyTaskViewHolder, position: Int) {
         val currentDailyTask = dataset[position]
+        holder.tvTaskTitle.textSize = 24F
+        holder.tvTaskTitle.setTypeface(null, Typeface.BOLD)
         holder.tvTaskTitle.text = currentDailyTask.title
         holder.rbtnIsDone.isChecked = currentDailyTask.state == true
+        if(currentDailyTask.state){
+            holder.tvTaskTitle.setTextColor(Color.parseColor("#006EE9"))
+        }
         holder.itemView.setOnClickListener {
             onItemClick.invoke(currentDailyTask)
         }
@@ -205,14 +214,23 @@ private class DailyTaskAdapter(
     }
 
     fun updateDataset(newDataset: List<DailyTask>) {
-        val diffResult = DiffUtil.calculateDiff(DiffCallback(dataset, newDataset))
+        val diffResult = DiffUtil.calculateDiff(
+            DiffCallback(
+                oldList = dataset,
+                newList = newDataset,
+                areItemsTheSame = { oldItem, newItem -> oldItem.taskId == newItem.taskId },
+                areContentsTheSame = { oldItem, newItem -> oldItem == newItem })
+        )
         dataset = newDataset
         diffResult.dispatchUpdatesTo(this)
     }
 }
-private class DiffCallback(
-    private val oldList: List<DailyTask>,
-    private val newList: List<DailyTask>
+
+class DiffCallback<T>(
+    private val oldList: List<T>,
+    private val newList: List<T>,
+    private val areItemsTheSame: (oldItem: T, newItem: T) -> Boolean,
+    private val areContentsTheSame: (oldItem: T, newItem: T) -> Boolean
 ) : DiffUtil.Callback() {
 
     override fun getOldListSize(): Int = oldList.size
@@ -220,10 +238,10 @@ private class DiffCallback(
     override fun getNewListSize(): Int = newList.size
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return oldList[oldItemPosition].userId == newList[newItemPosition].userId
+        return areItemsTheSame(oldList[oldItemPosition], newList[newItemPosition])
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return oldList[oldItemPosition] == newList[newItemPosition]
+        return areContentsTheSame(oldList[oldItemPosition], newList[newItemPosition])
     }
 }

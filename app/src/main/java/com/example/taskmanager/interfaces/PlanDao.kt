@@ -8,7 +8,7 @@ import androidx.room.Query
 import androidx.room.Transaction
 import com.example.taskmanager.model.Plan
 import com.example.taskmanager.model.PlanWithToDoLists
-import com.example.taskmanager.model.TodoList
+import com.example.taskmanager.model.Todo
 import java.util.Date
 
 @Dao
@@ -30,13 +30,13 @@ interface PlanDao {
     fun insertPlan(plan: Plan): Long
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertTodoList(todoList: TodoList)
+    fun insertTodoList(todo: Todo)
 //    @Insert(onConflict = OnConflictStrategy.REPLACE)
 //    fun insertTask(dailyTask: Plan)
     @Transaction
-    fun insertPlansWithTodolist(plan: Plan, todoList: List<TodoList>){
+    fun insertPlansWithTodolist(plan: Plan, todo: List<Todo>){
         val planId = insertPlan(plan)
-        val todolistWithUserId = todoList.map { it.copy(planCreate = planId) }
+        val todolistWithUserId = todo.map { it.copy(planCreate = planId) }
         todolistWithUserId.forEach { insertTodoList(it) }
     }
 

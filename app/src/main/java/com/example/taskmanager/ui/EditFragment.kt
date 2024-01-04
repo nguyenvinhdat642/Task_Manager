@@ -69,7 +69,7 @@ class EditFragment : Fragment() {
             val endDate = viewModel.parseToDate(tvEnd.text.toString())
             val title = edtTitle.text.toString()
             val content = edtDes.text.toString()
-            viewModel.updateTaskById(dailyTask!!.userId, startDate, endDate, title, content)
+            viewModel.updateTaskById(dailyTask!!.taskId, startDate, endDate, title, content)
             showAlertDialog()
         }
     }

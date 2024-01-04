@@ -18,11 +18,11 @@ data class Plan(
     @ColumnInfo(name = "progress") val progress: Int
 )
 @Entity
-data class TodoList(
+data class Todo(
     @PrimaryKey(autoGenerate = true) val todoId: Long = 0,
     @ColumnInfo(name = "title") val title: String,
     @ColumnInfo(name = "state") val state: Boolean,
-    val planCreate: Long
+    val planCreate: Long? = null
 )
 data class PlanWithToDoLists(
     @Embedded val plan: Plan,
@@ -30,5 +30,5 @@ data class PlanWithToDoLists(
         parentColumn = "planId",
         entityColumn = "planCreate"
     )
-    val todoList: List<TodoList>
+    val todo: List<Todo>
 )
