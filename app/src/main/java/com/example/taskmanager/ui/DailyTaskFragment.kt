@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.example.taskmanager.DailyTaskViewModel
+import com.example.taskmanager.viewModel.DailyTaskViewModel
 import com.example.taskmanager.R
 import com.google.android.material.button.MaterialButton
 import java.text.SimpleDateFormat
@@ -46,13 +46,13 @@ class DailyTaskFragment : Fragment() {
                 btnFinish.text = "Finish"
         }
         btnClose.setOnClickListener{
-            findNavController().navigate(R.id.action_dailyTaskFragment_to_calendar)
+            findNavController().navigate(R.id.action_dailyTaskFragment_to_home)
         }
         btnFinish.setOnClickListener {
             if (dailyTask?.state == true){
-                dailyTask.id.let { it1 -> viewModel.unfinishTask(it1) }
+                dailyTask.userId.let { it1 -> viewModel.unfinishTask(it1) }
             }else{
-                dailyTask?.id?.let { it1 -> viewModel.finishTask(it1) }
+                dailyTask?.userId?.let { it1 -> viewModel.finishTask(it1) }
             }
             findNavController().navigate(R.id.action_dailyTaskFragment_to_home)
 

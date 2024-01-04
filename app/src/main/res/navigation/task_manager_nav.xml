@@ -106,4 +106,9 @@
             android:id="@+id/action_editFragment_to_home"
             app:destination="@id/home" />
     </fragment>
+    <fragment
+        android:id="@+id/planFragment"
+        android:name="com.example.taskmanager.PlanFragment"
+        android:label="fragment_plan"
+        tools:layout="@layout/fragment_plan" />
 </navigation>

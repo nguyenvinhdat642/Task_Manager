@@ -1,45 +1,52 @@
 package com.example.taskmanager.ui
 
 import android.app.AlertDialog
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.RadioButton
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.example.taskmanager.DailyTask
-import com.example.taskmanager.DailyTaskViewModel
+import com.example.taskmanager.model.DailyTask
+import com.example.taskmanager.viewModel.DailyTaskViewModel
 import com.example.taskmanager.R
+import com.example.taskmanager.model.Plan
+import com.example.taskmanager.viewModel.PlanViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.type.Date
 import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
 import java.util.Locale
 
 
 class DashboardFragment : Fragment() {
     private val viewModel: DailyTaskViewModel by activityViewModels()
+    private val planViewModel: PlanViewModel by activityViewModels()
     private lateinit var auth: FirebaseAuth
     private var currentUser: FirebaseUser? = null
     private lateinit var username: TextView
     private lateinit var date: TextView
     private lateinit var dailyTaskAdapter: DailyTaskAdapter
+    private lateinit var planAdapter: PlanAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_dash_board, container, false)
-        val dailyTaskList = viewModel.getAllDailyTasks()
+        planAdapter = PlanAdapter(
+            dataset = planViewModel.getAllPlans()
+        )
         dailyTaskAdapter = DailyTaskAdapter(
-            dataset = dailyTaskList,
+            dataset = viewModel.getAllDailyTasks(),
             onItemClick = { selectedTask ->
                 viewModel.selectedDailyTask(selectedTask)
                 findNavController().navigate(R.id.action_home_to_dailyTaskFragment)
@@ -63,7 +70,7 @@ class DashboardFragment : Fragment() {
     }
 
     private fun setDate() {
-        val currentDate = java.util.Date()
+        val currentDate = Date()
         val dateFormat = SimpleDateFormat("EEEE, dd/MM/yyyy", Locale.getDefault())
         val formattedDate = dateFormat.format(currentDate)
         date.text = formattedDate
@@ -78,8 +85,7 @@ class DashboardFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        dailyTaskAdapter.notifyDataSetChanged()
-
+        dailyTaskAdapter.updateDataset(viewModel.getAllDailyTasks())
     }
 
     private fun showAlertDialog(dailyTask: DailyTask) {
@@ -115,16 +121,60 @@ class DashboardFragment : Fragment() {
         btnYes.setOnClickListener {
             viewModel.deleteTask(dailyTask)
             alertDialog.dismiss()
+            dailyTaskAdapter.updateDataset(viewModel.getAllDailyTasks()) // Move notifyDataSetChanged here
         }
         btnNo.setOnClickListener {
             alertDialog.dismiss()
         }
         alertDialog.show()
     }
+
+}
+
+private class PlanAdapter(private var dataset: List<Plan>) :
+    RecyclerView.Adapter<PlanAdapter.PlanViewHolder>(){
+    inner class PlanViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val timeRemaining = itemView.findViewById<TextView>(R.id.time_remaining)
+        val planTitle = itemView.findViewById<TextView>(R.id.plan_title)
+        val progressBar = itemView.findViewById<ProgressBar>(R.id.progressBar)
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlanViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.plan_item, parent, false)
+        return PlanViewHolder(view)
+    }
+
+    override fun getItemCount() = dataset.size
+
+    override fun onBindViewHolder(holder: PlanViewHolder, position: Int) {
+        val currentPlan = dataset[position]
+        holder.planTitle.text = currentPlan.title
+        holder.timeRemaining.text = calculateRemainingDays(currentPlan.startDate, currentPlan.endDate).toString()
+        holder.progressBar.progress = 50
+    }
+    fun calculateRemainingDays(startDate: Date, endDate: Date): Long {
+        // Convert Date objects to Calendar instances
+        val startCalendar = Calendar.getInstance().apply { time = startDate }
+        val endCalendar = Calendar.getInstance().apply { time = endDate }
+
+        // Set the time of the endCalendar to the end of the day
+        endCalendar.set(Calendar.HOUR_OF_DAY, 23)
+        endCalendar.set(Calendar.MINUTE, 59)
+        endCalendar.set(Calendar.SECOND, 59)
+        endCalendar.set(Calendar.MILLISECOND, 999)
+
+        // Calculate the difference in milliseconds
+        val timeDifference = endCalendar.timeInMillis - startCalendar.timeInMillis
+
+        // Convert milliseconds to days
+
+        return timeDifference / (1000 * 60 * 60 * 24)
+    }
+
 }
 
 private class DailyTaskAdapter(
-    private val dataset: List<DailyTask>,
+    private var dataset: List<DailyTask>,
     private val onItemClick: (DailyTask) -> Unit,
     private val onItemLongClick: (DailyTask) -> Unit
 ) : RecyclerView.Adapter<DailyTaskAdapter.DailyTaskViewHolder>() {
@@ -154,4 +204,26 @@ private class DailyTaskAdapter(
         }
     }
 
+    fun updateDataset(newDataset: List<DailyTask>) {
+        val diffResult = DiffUtil.calculateDiff(DiffCallback(dataset, newDataset))
+        dataset = newDataset
+        diffResult.dispatchUpdatesTo(this)
+    }
+}
+private class DiffCallback(
+    private val oldList: List<DailyTask>,
+    private val newList: List<DailyTask>
+) : DiffUtil.Callback() {
+
+    override fun getOldListSize(): Int = oldList.size
+
+    override fun getNewListSize(): Int = newList.size
+
+    override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+        return oldList[oldItemPosition].userId == newList[newItemPosition].userId
+    }
+
+    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+        return oldList[oldItemPosition] == newList[newItemPosition]
+    }
 }

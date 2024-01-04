@@ -1,9 +1,11 @@
-package com.example.taskmanager
+package com.example.taskmanager.viewModel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.taskmanager.AppDatabase
+import com.example.taskmanager.model.DailyTask
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -30,11 +32,11 @@ class DailyTaskViewModel(application: Application) : AndroidViewModel(applicatio
         return sampleList
     }
 
-    fun getDailyTaskBetweenDay(selectedDate: Date): List<DailyTask> {
+    fun getAllTaskOfDate(selectedDate: Date): List<DailyTask> {
         val result = arrayListOf<DailyTask>()
         viewModelScope.launch(Dispatchers.IO) {
             result.clear()
-            result.addAll(dailyTaskDao.getTasksBetweenDates(selectedDate))
+            result.addAll(dailyTaskDao.getAllTaskOfTheDate(selectedDate))
         }
         return result
     }
@@ -53,13 +55,13 @@ class DailyTaskViewModel(application: Application) : AndroidViewModel(applicatio
         return simpleDateFormat.format(date)
     }
 
-    fun finishTask(taskId: Int) {
+    fun finishTask(taskId: Long) {
         viewModelScope.launch(Dispatchers.IO) {
             dailyTaskDao.updateTaskState(taskId, newState = true)
         }
     }
 
-    fun unfinishTask(taskId: Int) {
+    fun unfinishTask(taskId: Long) {
         viewModelScope.launch(Dispatchers.IO) {
             dailyTaskDao.updateTaskState(taskId, newState = false)
         }
@@ -72,7 +74,7 @@ class DailyTaskViewModel(application: Application) : AndroidViewModel(applicatio
     }
 
     fun updateTaskById(
-        taskId: Int,
+        taskId: Long,
         startDate: Date,
         endDate: Date,
         title: String,

@@ -1,4 +1,4 @@
-package com.example.taskmanager
+package com.example.taskmanager.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -7,7 +7,7 @@ import java.util.Date
 
 @Entity
 data class DailyTask (
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    @PrimaryKey(autoGenerate = true) val userId: Long = 0,
     @ColumnInfo(name = "start_date") val startDate: Date,
     @ColumnInfo(name = "end_date") val endDate: Date,
     @ColumnInfo(name = "title") val title: String,

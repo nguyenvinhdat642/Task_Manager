@@ -12,8 +12,7 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.example.taskmanager.DailyTask
-import com.example.taskmanager.DailyTaskViewModel
+import com.example.taskmanager.viewModel.DailyTaskViewModel
 import com.example.taskmanager.R
 import com.google.android.material.button.MaterialButton
 import java.text.SimpleDateFormat
@@ -70,7 +69,7 @@ class EditFragment : Fragment() {
             val endDate = viewModel.parseToDate(tvEnd.text.toString())
             val title = edtTitle.text.toString()
             val content = edtDes.text.toString()
-            viewModel.updateTaskById(dailyTask!!.id, startDate, endDate, title, content)
+            viewModel.updateTaskById(dailyTask!!.userId, startDate, endDate, title, content)
             showAlertDialog()
         }
     }

@@ -2,7 +2,6 @@ package com.example.taskmanager.ui
 
 import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -27,8 +26,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
-import com.example.taskmanager.DailyTaskViewModel
-import com.example.taskmanager.MainActivity
+import com.example.taskmanager.viewModel.DailyTaskViewModel
 import com.example.taskmanager.R
 
 class LoginFragment : Fragment() {

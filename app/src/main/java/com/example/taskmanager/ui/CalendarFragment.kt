@@ -1,7 +1,6 @@
 package com.example.taskmanager.ui
 
 import android.app.DatePickerDialog
-import android.opengl.Visibility
 import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -14,8 +13,8 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.example.taskmanager.DailyTask
-import com.example.taskmanager.DailyTaskViewModel
+import com.example.taskmanager.model.DailyTask
+import com.example.taskmanager.viewModel.DailyTaskViewModel
 import com.example.taskmanager.R
 import java.time.LocalDate
 import java.time.Month
@@ -141,7 +140,7 @@ class CalendarFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun updateDailyTasksForDate(selectedDate: LocalDate, dailyTaskList: RecyclerView) {
-        dailyTaskData = viewModel.getDailyTaskBetweenDay(
+        dailyTaskData = viewModel.getAllTaskOfDate(
             Date.from(
                 selectedDate.atStartOfDay(
                     ZoneId.systemDefault()
