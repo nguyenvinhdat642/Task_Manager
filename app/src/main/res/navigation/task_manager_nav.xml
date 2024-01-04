@@ -31,6 +31,9 @@
         <action
             android:id="@+id/action_avatar_to_home"
             app:destination="@id/home" />
+        <action
+            android:id="@+id/action_avatar_to_settingFragment"
+            app:destination="@id/settingFragment" />
     </fragment>
     <fragment
         android:id="@+id/calendar"
@@ -111,4 +114,13 @@
         android:name="com.example.taskmanager.PlanFragment"
         android:label="fragment_plan"
         tools:layout="@layout/fragment_plan" />
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.example.taskmanager.ui.SettingFragment"
+        android:label="fragment_setting"
+        tools:layout="@layout/fragment_setting" >
+        <action
+            android:id="@+id/action_settingFragment_to_avatar"
+            app:destination="@id/avatar" />
+    </fragment>
 </navigation>

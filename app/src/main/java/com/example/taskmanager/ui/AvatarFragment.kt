@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -18,6 +19,7 @@ import com.google.firebase.auth.FirebaseUser
 class AvatarFragment : Fragment() {
     private lateinit var btnLogout: MaterialButton
     private lateinit var btnProfile: MaterialButton
+    private lateinit var btnSetting: Button
     private lateinit var tvName: TextView
     private lateinit var tvEmail: TextView
     private lateinit var ivAvatar: ImageView
@@ -34,6 +36,7 @@ class AvatarFragment : Fragment() {
 
         btnLogout = view.findViewById(R.id.btnLogout)
         btnProfile = view.findViewById(R.id.btnProfile)
+        btnSetting = view.findViewById(R.id.btnSetting)
         tvName = view.findViewById(R.id.name)
         tvEmail = view.findViewById(R.id.tvEmail)
         ivAvatar = view.findViewById(R.id.profile_image)
@@ -57,6 +60,11 @@ class AvatarFragment : Fragment() {
         btnBack.setOnClickListener {
             findNavController().navigate(R.id.action_avatar_to_home)
         }
+
+        btnSetting.setOnClickListener {
+            findNavController().navigate(R.id.action_avatar_to_settingFragment)
+        }
+
     }
 
     private fun showLogoutConfirmationDialog() {

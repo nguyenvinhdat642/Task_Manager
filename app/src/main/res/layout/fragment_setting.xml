@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#006EE9"
+    tools:context=".ui.AddTaskFragment">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/navigate2"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        app:backgroundTint="@color/white"
+        app:cornerRadius="10dp"
+        app:icon="@drawable/arrow_back_24px"
+        app:iconGravity="textStart"
+        app:iconPadding="0dp"
+        app:iconTint="#006EE9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
+        app:cardCornerRadius="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/navigate2">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Setting"
+                android:textSize="24dp"
+                android:layout_marginTop="30dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Location and Task Completed -->
+
+            <!-- Menu Options -->
+            <!-- Repeat the following structure for each menu item -->
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnTheme"
+                android:layout_width="290dp"
+                android:layout_height="49dp"
+                android:layout_marginTop="68dp"
+                android:drawableLeft="@drawable/drawable_image_10"
+                android:text="Theme"
+                android:textAlignment="textStart"
+                android:textColor="@color/black"
+                app:backgroundTint="#FFFFFF"
+                app:cornerRadius="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/name" />
+
+            <TextView
+                android:id="@+id/tvTheme"
+                android:layout_width="124dp"
+                android:layout_height="49dp"
+                android:text="Dark/light"
+                android:gravity="center"
+                android:textSize="16dp"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btnTheme"
+                app:layout_constraintTop_toTopOf="@+id/btnTheme">
+
+            </TextView>
+
+            <!--            <com.google.android.material.button.MaterialButton-->
+<!--                android:id="@+id/btnStatistic"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="54dp"-->
+<!--                android:drawableLeft="@drawable/drawable_image_12"-->
+<!--                android:text="Statistic"-->
+<!--                android:textAlignment="textStart"-->
+<!--                android:textColor="@color/black"-->
+<!--                app:backgroundTint="#FFFFFF"-->
+<!--                app:cornerRadius="10dp"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintHorizontal_bias="0.0"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/btnProfile" />-->
+
+<!--            <com.google.android.material.button.MaterialButton-->
+<!--                android:id="@+id/btnLocation"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="54dp"-->
+<!--                android:drawableLeft="@drawable/drawable_image_13"-->
+<!--                android:text="Location"-->
+<!--                android:textAlignment="textStart"-->
+<!--                android:textColor="@color/black"-->
+<!--                app:backgroundTint="#FFFFFF"-->
+<!--                app:cornerRadius="10dp"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintHorizontal_bias="0.0"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/btnStatistic" />-->
+
+<!--            <com.google.android.material.button.MaterialButton-->
+<!--                android:id="@+id/btnSetting"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="54dp"-->
+<!--                android:drawableLeft="@drawable/drawable_image_14"-->
+<!--                android:text="Setting"-->
+<!--                android:textAlignment="textStart"-->
+<!--                android:textColor="@color/black"-->
+<!--                app:backgroundTint="#FFFFFF"-->
+<!--                app:cornerRadius="10dp"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintHorizontal_bias="0.0"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/btnLocation" />-->
+
+<!--            <com.google.android.material.button.MaterialButton-->
+<!--                android:id="@+id/btnLogout"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="54dp"-->
+<!--                android:drawableLeft="@drawable/drawable_image_15"-->
+<!--                android:text="Logout"-->
+<!--                android:textAlignment="textStart"-->
+<!--                android:textColor="@color/black"-->
+<!--                app:backgroundTint="#FFFFFF"-->
+<!--                app:cornerRadius="10dp"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/btnSetting" />-->
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
